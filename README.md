@@ -1,7 +1,9 @@
-# <parSta Project>
+# parSta Project
 Team Name: 저희이제뭐하조?
 Team Leader: 장상경
 Team Member: 김상민, 박채현
+
+***
 
 ## 1. 프로젝트 개요
 - ProjectName: parSta!
