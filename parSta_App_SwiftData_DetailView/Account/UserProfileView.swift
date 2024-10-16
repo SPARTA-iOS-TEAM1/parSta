@@ -54,25 +54,14 @@ struct UserProfileView: View {
                 .cancel()
             ])
         }
-        .sheet(isPresented: $showPhotosPicker) {
-            ZStack {
-                // 이미지 크롭 기능 - 추후 업데이트
-                // ImageEditorView(inputImage: $selectedImageData, showPhotosPicker: $showPhotosPicker)
-                
-                PhotosPicker(selection: $selectedImage, matching: .images) {
-                    Text("Select a photo")
-                }
-                .zIndex(1)
-//                .offset(y: UIScreen.main.bounds.height / 3)
-                .onChange(of: selectedImage) { _, image in
-                    Task {
-                        if let data = try? await image?.loadTransferable(type: Data.self) {
-                            selectedImageData = data
-                            UserDefaults.standard.set(data, forKey: "profileImage")
-                            
-                            self.showPhotosPicker = false
-                        }
-                    }
+        .photosPicker(isPresented: $showPhotosPicker, selection: $selectedImage)
+        .onChange(of: selectedImage) { _, image in
+            Task {
+                if let data = try? await image?.loadTransferable(type: Data.self) {
+                    selectedImageData = data
+                    UserDefaults.standard.set(data, forKey: "profileImage")
+                    
+                    self.showPhotosPicker = false
                 }
             }
         }
