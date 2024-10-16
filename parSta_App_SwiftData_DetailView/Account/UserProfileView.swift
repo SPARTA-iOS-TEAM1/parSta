@@ -11,12 +11,17 @@ import PhotosUI
 struct UserProfileView: View {
     
     @State private var selectedImage: PhotosPickerItem?
-    @State private var profileImage: UIImage?
-    @State private var selectedImageData: Data?
+    
+    @Binding public var selectedImageData: Data?
     
     @State private var actionSheetShowing: Bool = false
     @State private var showDefaultsImagePicker: Bool = false
     @State private var showPhotosPicker: Bool = false
+    @State private var showImageEditor: Bool = false
+    
+    init(selectedImageData: Binding<Data?> = .constant(Data())) {
+        _selectedImageData = selectedImageData
+    }
     
     var body: some View {
         
@@ -61,8 +66,13 @@ struct UserProfileView: View {
                     selectedImageData = data
                     UserDefaults.standard.set(data, forKey: "profileImage")
                     
-                    self.showPhotosPicker = false
+                    self.showImageEditor = true
                 }
+            }
+        }
+        .sheet(isPresented: $showImageEditor) {
+            if self.selectedImage != nil {
+                ImageEditorView(image: $selectedImageData, showImageEditor: $showImageEditor)
             }
         }
         .sheet(isPresented: $showDefaultsImagePicker) {
@@ -76,7 +86,17 @@ struct UserProfileView: View {
                 ParstaDefaultsProfileImage(showDefaultsImagePicker: $showDefaultsImagePicker, selectedImageData: $selectedImageData)
             }
         }
+        .onAppear() {
+            self.selectedImageData = UserDefaults.standard.data(forKey: "profileImage")
+        }
     }
+}
+
+func saveImageToUserDefaults(_ image: UIImage) {
+    let profileImage = image
+    let imageData = profileImage.pngData()
+    
+    UserDefaults.standard.set(imageData, forKey: "profileImage")
 }
 
 #Preview {

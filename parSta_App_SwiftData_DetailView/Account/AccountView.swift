@@ -13,6 +13,7 @@ struct AccountView: View {
     @State private var editNickName: String = ""
     @State private var edit: Bool = false
     @State private var blankUserName: Bool = false
+    @State private var selectedImageData: Data?
     
     var body: some View {
         ScrollView {
@@ -22,7 +23,7 @@ struct AccountView: View {
                     .frame(height: 40)
                     .opacity(0)
                 
-                UserProfileView()
+                UserProfileView(selectedImageData: $selectedImageData)
                     .padding(.bottom, 20)
                 
                 HStack {
