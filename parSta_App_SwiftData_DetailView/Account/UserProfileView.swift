@@ -26,6 +26,7 @@ struct UserProfileView: View {
     var body: some View {
         
         VStack(spacing: 0) {
+            // 사용자의 이미지 표시
             if let selectedImageData, let image = UIImage(data: selectedImageData) {
                 Image(uiImage: image)
                     .resizable()
@@ -34,6 +35,7 @@ struct UserProfileView: View {
                     .clipShape(Circle())
             }
             
+            // 이미지 변경 트리거
             Button(action: {
                 self.actionSheetShowing = true
             }) {
@@ -48,6 +50,9 @@ struct UserProfileView: View {
                 self.selectedImageData = UserDefaults.standard.data(forKey: "profileImage")
             }
         }
+        // 트리거 클릭시 선택지 제공
+        // 1. 사용자의 갤러리에서 이미지 선택
+        // 2. 앱에서 기본 제공하는 이미지 선택
         .actionSheet(isPresented: $actionSheetShowing) {
             ActionSheet(title: Text("Select Profile Image"), message: nil, buttons: [
                 .default(Text("Choose from Gallery")) {
@@ -59,6 +64,7 @@ struct UserProfileView: View {
                 .cancel()
             ])
         }
+        // 갤러리에서 이미지 선택시
         .photosPicker(isPresented: $showPhotosPicker, selection: $selectedImage)
         .onChange(of: selectedImage) { _, image in
             Task {
@@ -70,11 +76,13 @@ struct UserProfileView: View {
                 }
             }
         }
+        // 갤러리에서 이미지 선택 완료 후 이미지 편집 뷰
         .sheet(isPresented: $showImageEditor) {
             if self.selectedImage != nil {
                 ImageEditorView(image: $selectedImageData, showImageEditor: $showImageEditor)
             }
         }
+        // 앱에서 기본 제공하는 이미지 사용시
         .sheet(isPresented: $showDefaultsImagePicker) {
             VStack {
                 Text("Select the profile you want")
@@ -92,6 +100,7 @@ struct UserProfileView: View {
     }
 }
 
+// UserDefaults에 이미지 데이터를 저장하는 함수
 func saveImageToUserDefaults(_ image: UIImage) {
     let profileImage = image
     let imageData = profileImage.pngData()

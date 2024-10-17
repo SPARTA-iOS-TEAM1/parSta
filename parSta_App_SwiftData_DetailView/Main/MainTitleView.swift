@@ -24,6 +24,7 @@ struct MainTitleView: View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(spacing: 0) {
+                    // 앱 로고 및 사용자 정보 표시
                     Group {
                         Image("Logo")
                             .resizable()
@@ -48,21 +49,27 @@ struct MainTitleView: View {
                                     .font(.system(size: 25))
                                     .fontWeight(.bold)
                                 
+                                // 랭크 정보를 보여주는 뷰
                                 RankDataView()
                             }
                         }
                         .offset(x: -proxy.size.width / 20)
                     }
+                    // iOS 뉴스를 표시하는 뷰
                     NewsView()
                         .padding(.top, 30)
                         .padding(.bottom, 30)
                     
+                    // 다른 뷰로 네비게이션링크를 통해 이동할 수 있는 트리거 뷰
+                    // 1. SwiftData
+                    // 2. Daily Quiz
                     VStack(spacing: 20) {
                         Text("Quiz")
                             .font(.headline)
                             .fontWeight(.medium)
                             .offset(x: -proxy.size.width / 2.5)
                         
+                        // SwfitData뷰로 이동
                         Group {
                             NavigationLink(destination: SwiftDataView()) {
                                 ZStack {
@@ -82,6 +89,7 @@ struct MainTitleView: View {
                                 }
                             }
                             
+                            // Daily Quiz로 이동
                             NavigationLink(destination: DailyQuizViewControllerWrapperWithCustomBackButton()) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
@@ -100,6 +108,8 @@ struct MainTitleView: View {
                                 }
                             }
                             
+                            // Comming Soon...
+                            // 미구현 기능 - Alert로 경고 표시
                             Button(action: {
                                 self.isShowingCommingSoon = true
                             }) {
@@ -140,7 +150,8 @@ struct MainTitleView: View {
         }
     }
 }
-
+// 유저의 닉네임 값을 확인하는 함수
+// UserDefaults에 저장된 이름이 nil일 경우 ""을 반환
 func checkNickName() -> String {
     let check = UserDefaults.standard.string(forKey: "nickname")
     var nickName: String = ""

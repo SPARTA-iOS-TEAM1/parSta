@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ParstaSplashView: View {
     var body: some View {
-            
+            // 앱 실행시 보여줄 스플래시 뷰
             Image("Logo")
                 .resizable()
                 .scaledToFit()

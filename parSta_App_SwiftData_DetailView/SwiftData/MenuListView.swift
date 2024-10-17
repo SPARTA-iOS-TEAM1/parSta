@@ -1,55 +1,57 @@
+////
+////  MenuListView.swift
+////  parSta_App_SwiftData_DetailView
+////
+////  Created by 장상경 on 10/2/24.
+////
 //
-//  MenuListView.swift
-//  parSta_App_SwiftData_DetailView
+//import SwiftUI
 //
-//  Created by 장상경 on 10/2/24.
+//struct MenuListView: View {
+//    
+//    private var swiftData: [SwiftData] = swiftDataSet
+//    
+//    var body: some View {
+//        
+//        VStack(spacing: 0) {
+//            
+//            Text("Swift Data")
+//                .font(.system(size: 30))
+//                .fontWeight(.bold)
+//                .padding(.bottom, 20)
+//            
+//            Rectangle()
+//                .frame(height: 5)
+//                .foregroundStyle(Color.gray.opacity(0.1))
+//                .padding(.bottom, 20)
+//            
+//            ScrollView {
+//                ForEach((swiftData), id: \.self) { data in
+//                    ZStack {
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .frame(width: 300, height: 50)
+//                            .foregroundStyle(Color.blue)
+//                        
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .frame(width: 295, height: 45)
+//                            .foregroundStyle(Color.white)
+//                        
+//                        Text(data.title)
+//                            .font(.system(size: 20))
+//                            .fontWeight(.medium)
+//                            .foregroundStyle(Color.blue)
+//                            .lineLimit(1)
+//                    }
+//                    .padding(.bottom, 15)
+//                }
+//                .padding(.top, 10)
+//            }
+//        }
+//    }
+//}
 //
+//#Preview {
+//    MenuListView()
+//}
 
-import SwiftUI
-
-struct MenuListView: View {
-    
-    private var swiftData: [SwiftData] = swiftDataSet
-    
-    var body: some View {
-        
-        VStack(spacing: 0) {
-            
-            Text("Swift Data")
-                .font(.system(size: 30))
-                .fontWeight(.bold)
-                .padding(.bottom, 20)
-            
-            Rectangle()
-                .frame(height: 5)
-                .foregroundStyle(Color.gray.opacity(0.1))
-                .padding(.bottom, 20)
-            
-            ScrollView {
-                ForEach((swiftData), id: \.self) { data in
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 300, height: 50)
-                            .foregroundStyle(Color.blue)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 295, height: 45)
-                            .foregroundStyle(Color.white)
-                        
-                        Text(data.title)
-                            .font(.system(size: 20))
-                            .fontWeight(.medium)
-                            .foregroundStyle(Color.blue)
-                            .lineLimit(1)
-                    }
-                    .padding(.bottom, 15)
-                }
-                .padding(.top, 10)
-            }
-        }
-    }
-}
-
-#Preview {
-    MenuListView()
-}
+// 사이드 메뉴의 테스트를 위해 작성한 뷰(사용 안함)

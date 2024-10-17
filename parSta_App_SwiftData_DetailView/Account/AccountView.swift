@@ -23,9 +23,11 @@ struct AccountView: View {
                     .frame(height: 40)
                     .opacity(0)
                 
+                // 사용자의 프로필 사진을 관리하는 뷰
                 UserProfileView(selectedImageData: $selectedImageData)
                     .padding(.bottom, 20)
                 
+                // 사용자의 닉네임을 변경하는 뷰
                 HStack {
                     if self.edit {
                         TextField("Edit your Nickname", text: $editNickName)
@@ -70,6 +72,7 @@ struct AccountView: View {
                 }
                 .padding(.bottom, 20)
                 
+                // 사용자의 랭크를 나타내는 뷰
                 RankDataView()
                     .padding(.bottom, 30)
                 
@@ -86,6 +89,7 @@ struct AccountView: View {
                         .foregroundStyle(Color.white)
                         .shadow(color: Color.parsta, radius: 2)
                     
+                    // 랭크 정보를 표시하는 뷰
                     RankInfomation()
                         .padding(.top, 20)
                 }

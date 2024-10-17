@@ -19,17 +19,19 @@ struct SideMenuView: View {
     }
     
     var body: some View {
-        
+        // 사이드메뉴 뷰
         ZStack {
-            
+            // 사이드메뉴의 배경 지정
             Rectangle()
                 .edgesIgnoringSafeArea(.all)
                 .foregroundStyle(Color.white)
                 .shadow(color: .gray, radius: 5)
             
+            // 사이드메뉴의 내부 구성
             VStack(alignment: .leading, spacing: 0) {
                 
                 HStack(spacing: 0) {
+                    // 사이드메뉴를 닫는 트리거
                     Image(systemName: "xmark")
                         .font(.system(size: 20))
                         .foregroundStyle(Color.parstaGray)
@@ -45,11 +47,13 @@ struct SideMenuView: View {
                 .padding(.bottom, 20)
                 .padding(.leading, safeAreaBottomSizeCheck())
                 
+                // 사이드메뉴 목록과 제목의 구분선
                 Rectangle()
                     .frame(height: 5)
                     .foregroundStyle(Color.parstaGray.opacity(0.1))
                     .padding(.bottom, 20)
                 
+                // 사이드메뉴 목록
                 ScrollView {
                     ForEach((swiftData), id: \.self) { data in
                         ZStack() {
@@ -84,6 +88,8 @@ struct SideMenuView: View {
     }
 }
 
+// 폰 기존에 따른 패딩값 변경 함수
+// 홈 버튼이 있는 기종은 패딩 값이 감소(iPhon SE 등)
 private func safeAreaBottomSizeCheck() -> CGFloat {
     let scenes = UIApplication.shared.connectedScenes
     let windowScene = scenes.first as? UIWindowScene

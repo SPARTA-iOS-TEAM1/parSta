@@ -19,3 +19,5 @@ let platinum: Rank = Rank(rankName: "Platinum", maxExp: 400000, color: Color.pla
 let diamond: Rank = Rank(rankName: "Diamond", maxExp: 500000, color: Color.diamond)
 
 let rankSet: [Rank] = [bronze, silver, gold, platinum, diamond]
+
+// 랭크의 종류와 값을 설정

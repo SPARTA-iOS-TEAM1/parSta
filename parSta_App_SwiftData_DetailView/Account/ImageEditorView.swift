@@ -28,6 +28,7 @@ struct ImageEditorView: View {
             
             Spacer()
             
+            // 편집할 이미지를 표시하는 뷰
             if let imageData = self.image, let image = UIImage(data: imageData) {
                 Image(uiImage: image)
                     .resizable()
@@ -44,6 +45,7 @@ struct ImageEditorView: View {
                         }
                     }
                 
+                // 이미지 수정을 완료하는 버튼
                 Button(action: {
                     croppedImage = crop(image: image, cropArea: cropArea, imageViewSize: ImageViewSize)
                     if let croppedImage {
@@ -76,6 +78,7 @@ struct ImageEditorView: View {
     }
 }
 
+// 이미지 크롭 기능을 구현하는 함수
 private func crop(image: UIImage, cropArea: CGRect, imageViewSize: CGSize) -> UIImage? {
     let scaleX = image.size.width / imageViewSize.width * image.scale
     let scaleY = image.size.height / imageViewSize.height * image.scale

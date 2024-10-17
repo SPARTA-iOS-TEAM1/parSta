@@ -22,6 +22,7 @@ struct ContentView: View {
         
         ZStack(alignment: .bottom) {
             
+            // 앱 실행시 보여질 스플래시 뷰
             if self.splashOn {
                 ParstaSplashView()
                     .zIndex(2)
@@ -34,8 +35,11 @@ struct ContentView: View {
                     })
             }
             
+            // 메인 화면
             NavigationView {
                 ZStack {
+                    // 탭 뷰
+                    // 현재 값에 따라 보여질 뷰 변경
                     if tabIndex == .home {
                         MainTitleView(tabIndex: $tabIndex)
                             .transition(.opacity)
@@ -49,7 +53,7 @@ struct ContentView: View {
                 }
                 .animation(.smooth, value: self.tabIndex)
             }
-                        
+            // 탭 뷰의 배경
             Rectangle()
                 .ignoresSafeArea(.all)
                 .frame(height: 60 + safeAreaBottomSizeCheck())
@@ -57,8 +61,9 @@ struct ContentView: View {
                 .shadow(color: .parsta.opacity(0.1), radius: 10)
             
             VStack(spacing: 0) {
-                
+                // 탭 뷰의 버튼
                 HStack(spacing: 80) {
+                    // 세팅 뷰 이동 트리거
                     Button(action: {
                             self.tabIndex = .setting
                     }) {
@@ -73,7 +78,7 @@ struct ContentView: View {
                         }
                         .foregroundStyle(self.tabIndex == .setting ? Color.parsta : Color.parstaGray)
                     }
-                    
+                    // 홈 뷰 이동 트리거
                     Button(action: {
                             self.tabIndex = .home
                     }) {
@@ -88,7 +93,7 @@ struct ContentView: View {
                         }
                         .foregroundStyle(self.tabIndex == .home ? Color.parsta : Color.parstaGray)
                     }
-                    
+                    // 사용자 뷰 이동 트리거
                     Button(action: {
                             self.tabIndex = .account
                     }) {
@@ -104,11 +109,14 @@ struct ContentView: View {
                         .foregroundStyle(self.tabIndex == .account ? Color.parsta : Color.parstaGray)
                     }
                 }
+                // 기종에 따라 탭 뷰의 버튼들이 아래로 치우치는 현상 발생
+                // 기종에 따라 홈 뷰의 버튼의 위치를 바꾸기 위한 뷰
                 Rectangle()
                     .frame(height: safeAreaBottomSizeCheck())
                     .foregroundStyle(Color.parstaGray200)
             }
         }
+        // 뷰가 생성될 때마다 사용자의 정보를 모두 가져오고, 값이 빈 값인 경우 임의의 값을 부여
         .onAppear() {
             if UserDefaults.standard.string(forKey: "nickname") == nil {
                 UserDefaults.standard.set("Sparta0\(Int.random(in: 1...99))", forKey: "nickname")
@@ -132,6 +140,7 @@ struct ContentView: View {
     }
 }
 
+// 기종에 따라 다른 패딩값을 주기 위한 함수
 private func safeAreaBottomSizeCheck() -> CGFloat {
     let scenes = UIApplication.shared.connectedScenes
     let windowScene = scenes.first as? UIWindowScene

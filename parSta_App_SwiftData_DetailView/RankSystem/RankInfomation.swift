@@ -14,6 +14,8 @@ struct RankInfomation: View {
     var body: some View {
         VStack(spacing: 20) {
             
+            // 앱에서 지원하는 랭크와 필요 경험치량을 표시하는 뷰
+            // rankSet에 랭크를 추가하는 것으로 간단히 값을 추가 가능(재사용성)
             ForEach(rank, id: \.self) { rank in
                 HStack(spacing: 0) {
                     ZStack {
@@ -29,7 +31,7 @@ struct RankInfomation: View {
                     }
                     .padding(.trailing, 15)
 
-                    
+                    // 랭크업에 필요한 경험치를 표시
                     VStack(alignment: .leading) {
                         Text("Experience value\nrequired to level up:")
                             .font(.headline)

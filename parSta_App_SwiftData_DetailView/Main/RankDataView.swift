@@ -18,6 +18,7 @@ struct RankDataView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
+                // 랭크 이름 표시
                 Text(self.rank ?? "")
                     .font(.headline)
                     .fontWeight(.semibold)
@@ -27,10 +28,12 @@ struct RankDataView: View {
                     .background(rankColorChange())
                     .cornerRadius(10)
                 
+                // 현재 랭크에 따른 필요 경험치와 현재 경험치 표시
                 Text("\(self.exp) / \(maxExpChange())")
                     .font(.subheadline)
                     .fontWeight(.medium)
             }
+            // 뷰가 생성될 때마다 유저의 닉네임, 경험치, 랭크 정보를 불러옴
             .onAppear() {
                 withAnimation {
                     self.progress = progressChanger()
@@ -40,13 +43,13 @@ struct RankDataView: View {
                     self.exp = UserDefaults.standard.integer(forKey: "exp")
                 }
             }
-            
+            // 사용자의 경험치 표시
             ProgressBar(isColor: $isColor, progress: $progress, width: 250, height: 15, CRadius: 20)
         }
         
     }
 }
-
+// 경험치 바의 길이를 현재 경험치량의 비율에 맞춰 변경하는 함수
 func progressChanger() -> CGFloat {
     let exp = UserDefaults.standard.integer(forKey: "exp")
     var progressValue: CGFloat = 0
@@ -60,6 +63,7 @@ func progressChanger() -> CGFloat {
     return progressValue
 }
 
+// 사용자의 현재 랭크에 맞춰 랭크 색상을 변경하는 함수
 func rankColorChange() -> Color {
     let level = UserDefaults.standard.integer(forKey: "level")
     
@@ -79,6 +83,7 @@ func rankColorChange() -> Color {
     }
 }
 
+// 사용자의 현재 랭크에 따라 필요 경험치량을 변경하는 함수
 func maxExpChange() -> Int {
     let level = UserDefaults.standard.integer(forKey: "level")
     
@@ -98,6 +103,7 @@ func maxExpChange() -> Int {
     }
 }
 
+// 사용자의 현재 랭크에 따라 랭크 이름을 변경하는 함수
 func rankNameChange() -> String {
     let level = UserDefaults.standard.integer(forKey: "level")
     
