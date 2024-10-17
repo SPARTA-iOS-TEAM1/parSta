@@ -13,7 +13,7 @@ struct UserData: View {
     private let userProfileImage = UserDefaults.standard.data(forKey: "profileImage")
     
     var body: some View {
-        
+        // 사용자의 현재 상태를 확인하는 Master View
         VStack {
             Image(uiImage: UIImage(data: userProfileImage!)!)
                 .resizable()

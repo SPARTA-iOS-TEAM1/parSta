@@ -17,6 +17,7 @@ struct ProgressBar: View {
     
     var body: some View {
         
+        // 사용자의 경험치 바를 생성하는 뷰
         ZStack(alignment: .leading) {
             Rectangle()
                 .frame(width: self.width, height: self.height)

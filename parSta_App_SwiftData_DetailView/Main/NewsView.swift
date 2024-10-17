@@ -26,8 +26,8 @@ struct NewsView: View {
                 .fontWeight(.medium)
                 .offset(x: -140)
             
+            // 이미지 슬라이드 뷰
             TabView(selection: $selectedImage) {
-                
                 ForEach(newsImage, id: \.self) { item in
                     Image(item)
                         .resizable()

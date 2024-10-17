@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// 랭크 정의 설정
 struct Rank: Hashable {
     var rankName: String
     var maxExp: Int

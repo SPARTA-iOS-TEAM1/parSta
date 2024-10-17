@@ -18,7 +18,8 @@ struct SwiftDataView: View {
     var body: some View {
         
         ZStack {
-            
+            // 사이드메뉴 오픈시 배경을 어둡게 하는 뷰
+            // 사이드메뉴를 닫는 트리거
             Rectangle()
                 .zIndex(1)
                 .edgesIgnoringSafeArea(.all)
@@ -28,13 +29,16 @@ struct SwiftDataView: View {
                     self.presentSideMenu = false
                 }
             
+            // 사이드메뉴 뷰
             SideMenuView(presentSideMenu: $presentSideMenu, id: $id)
                 .zIndex(2)
                 .offset(x: presentSideMenu ? 150 : 600, y: 0)
                 .animation(.default, value: presentSideMenu)
             
+            // SwiftData의 상단 타이틀
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
+                    // 네비게이션 dismiss 트리거
                     Button(action: {
                         dismiss()
                     }) {
@@ -63,7 +67,7 @@ struct SwiftDataView: View {
                 }
                 Spacer()
             }
-            
+            // SwiftData뷰의 내용
             VStack(spacing: 0) {
                 
                 Rectangle()
@@ -88,6 +92,7 @@ struct SwiftDataView: View {
                 .scrollIndicators(.hidden)
                 
                 HStack(spacing: 0) {
+                    // 이전 데이터로 이동하는 트리거
                     Text("< Prev")
                         .font(.system(size: 15))
                         .fontWeight(.semibold)
@@ -104,6 +109,7 @@ struct SwiftDataView: View {
                     
                     Spacer()
                     
+                    // 다음 데이터로 이동하는 트리거
                     Text("Next >")
                         .font(.system(size: 15))
                         .fontWeight(.semibold)

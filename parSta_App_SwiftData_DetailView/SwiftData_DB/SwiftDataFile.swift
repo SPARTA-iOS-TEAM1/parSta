@@ -7,6 +7,8 @@
 
 import Foundation
 
+// SwiftData 항목들을 정의하고 정리하는 뷰
+
 let theBasics: SwiftData = SwiftData(title: "Constants and Variables",
                                      content: "Constants and variables associate a name (such as maximumNumberOfLoginAttempts or welcomeMessage) with a value of a particular type (such as the number 10 or the string \"Hello\"). The value of a constant can’t be changed once it’s set, whereas a variable can be set to a different value in the future.",
                                      id: 00)
@@ -102,3 +104,4 @@ let swiftDataSet: [SwiftData] = [theBasics,
                                  memorySafety,
                                  accessControl,
                                  advancedOperators]
+

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// 현재 언어 상태를 열거형으로 정의
 enum LanguageSetting {
     case english
     case korean
@@ -19,7 +20,7 @@ struct SettingView: View {
     var body: some View {
         
         List {
-            
+            // 언어 설정을 변경
             HStack {
                 Image(systemName: "globe")
                     .font(.subheadline)
@@ -40,6 +41,7 @@ struct SettingView: View {
                 }
             }
             
+            // 사용자의 보안설정을 변경(미구현)
             HStack {
                 Image(systemName: "lock.shield")
                     .font(.subheadline)
@@ -52,6 +54,8 @@ struct SettingView: View {
                     .foregroundStyle(Color.black)
             }
             
+            // 앱의 고객센터에 연결(미구현)
+            // 클릭시 제작자의 정보 표시
             HStack {
                 Image(systemName: "info.circle")
                     .font(.subheadline)
