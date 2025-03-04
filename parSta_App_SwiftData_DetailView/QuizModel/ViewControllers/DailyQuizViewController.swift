@@ -189,6 +189,9 @@ class DailyQuizViewController: UIViewController {
         let isCorrect = selectedAnswerIndex == quizLogic.correctAnswerIndex
         if isCorrect {
             solvedQuizManager.markQuizAsSolved(index: currentQuizIndex)
+            var exp = UserDefaults.standard.integer(forKey: "exp")
+            exp += 50000
+            UserDefaults.standard.set(exp, forKey: "exp")
             
             let alert = UIAlertController(title: "Congratulations 🎉", message: "You got it right!", preferredStyle: .alert)
             let goHomeAction = UIAlertAction(title: "Go Home", style: .default) { _ in

@@ -7,17 +7,27 @@
 
 import SwiftUI
 import UIKit
-
+import TipKit
 
 struct MainTitleView: View {
+    @Parameter static var isFirstLaunch: Bool = true
     
     @State private var isShowingCommingSoon: Bool = false
     @Binding var tabIndex: TabIndex
     @State private var userName = checkNickName()
     @State private var userProfileImage = UserDefaults.standard.data(forKey: "profileImage")
     
+    private let swiftDataTip: SwiftDataTips = SwiftDataTips()
+    private let daliyQuizTip: DailyQuizTips = DailyQuizTips()
+    
     init(tabIndex: Binding<TabIndex> = .constant(.home)) {
         _tabIndex = tabIndex
+        
+        do {
+            try setupTips()
+        } catch {
+            print("Error initializing tips: \(error)")
+        }
     }
     
     var body: some View {
@@ -69,8 +79,11 @@ struct MainTitleView: View {
                             .fontWeight(.medium)
                             .offset(x: -proxy.size.width / 2.5)
                         
-                        // SwfitData뷰로 이동
+                        
                         Group {
+                            TipView(swiftDataTip, arrowEdge: .bottom)
+                                .padding(.horizontal)
+                            // SwfitData뷰로 이동
                             NavigationLink(destination: SwiftDataView()) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
@@ -89,6 +102,8 @@ struct MainTitleView: View {
                                 }
                             }
                             
+                            TipView(daliyQuizTip, arrowEdge: .bottom)
+                                .padding(.horizontal)
                             // Daily Quiz로 이동
                             NavigationLink(destination: DailyQuizViewControllerWrapperWithCustomBackButton()) {
                                 ZStack {
@@ -145,8 +160,32 @@ struct MainTitleView: View {
             .scrollIndicators(.hidden)
         }
         .onAppear() {
+            if UserDefaults.standard.data(forKey: "profileImage") == nil {
+                let profileImage = UIImage(named: "profile_image")
+                let imageData = profileImage?.pngData()
+                
+                UserDefaults.standard.set(imageData, forKey: "profileImage")
+            }
+            
             self.userProfileImage = UserDefaults.standard.data(forKey: "profileImage")
             self.userName = checkNickName()
+            
+            Task {
+                await SwiftDataTips.swiftDataTip.donate()
+                await DailyQuizTips.dailyQuizTip.donate()
+            }
+
+            if SwiftDataTips.swiftDataTip.donations.count > 1 || DailyQuizTips.dailyQuizTip.donations.count > 1 {
+                MainTitleView.isFirstLaunch = false
+                
+                UserDefaults.standard.set(MainTitleView.isFirstLaunch, forKey: "userFirstLaunch")
+            } else {
+                MainTitleView.isFirstLaunch = true
+                
+                UserDefaults.standard.set(MainTitleView.isFirstLaunch, forKey: "userFirstLaunch")
+            }
+            
+            MainTitleView.isFirstLaunch = UserDefaults.standard.bool(forKey: "userFirstLaunch")
         }
     }
 }
@@ -161,6 +200,24 @@ func checkNickName() -> String {
     nickName = check!
     
     return nickName
+}
+
+// Tip을 표시할 때 기본 설정
+private func setupTips() throws {
+    // 모든 팁 노출
+    // Tips.showAllTipsForTesting()
+    
+    // 특정 팁만 테스팅일 위해 노출
+    // Tips.showTipsForTesting([tip1, tip2, tip3])
+    
+    // 앱에 정의된 모든 팁을 숨김
+    //    Tips.hideAllTipsForTesting()
+    
+    // 팁과 관련한 모든 데이터를 삭제
+//    try Tips.resetDatastore()
+    
+    // 모든 팁을 로드
+    try Tips.configure()
 }
 
 #Preview {

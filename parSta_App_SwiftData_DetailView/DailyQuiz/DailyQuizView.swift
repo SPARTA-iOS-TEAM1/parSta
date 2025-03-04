@@ -65,7 +65,7 @@ func levelUp() {
     case 0:
         if exp >= 100000 {
             level += 1
-            exp = 0
+            exp = exp - 100000
             UserDefaults.standard.set(exp, forKey: "exp")
             UserDefaults.standard.set(level, forKey: "level")
         } else {
@@ -74,7 +74,7 @@ func levelUp() {
     case 1:
         if exp >= 200000 {
             level += 1
-            exp = 0
+            exp = exp - 200000
             UserDefaults.standard.set(exp, forKey: "exp")
             UserDefaults.standard.set(level, forKey: "level")
         } else {
@@ -83,7 +83,7 @@ func levelUp() {
     case 2:
         if exp >= 300000 {
             level += 1
-            exp = 0
+            exp = exp - 300000
             UserDefaults.standard.set(exp, forKey: "exp")
             UserDefaults.standard.set(level, forKey: "level")
         } else {
@@ -92,7 +92,7 @@ func levelUp() {
     case 3:
         if exp >= 400000 {
             level += 1
-            exp = 0
+            exp = exp - 400000
             UserDefaults.standard.set(exp, forKey: "exp")
             UserDefaults.standard.set(level, forKey: "level")
         } else {

@@ -36,6 +36,7 @@ struct RankDataView: View {
             // 뷰가 생성될 때마다 유저의 닉네임, 경험치, 랭크 정보를 불러옴
             .onAppear() {
                 withAnimation {
+                    levelUp()
                     self.progress = progressChanger()
                     self.isColor = rankColorChange()
                     self.rank = rankNameChange()

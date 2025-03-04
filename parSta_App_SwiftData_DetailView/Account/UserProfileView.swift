@@ -65,7 +65,7 @@ struct UserProfileView: View {
             ])
         }
         // 갤러리에서 이미지 선택시
-        .photosPicker(isPresented: $showPhotosPicker, selection: $selectedImage)
+        .photosPicker(isPresented: $showPhotosPicker, selection: $selectedImage, matching: .images)
         .onChange(of: selectedImage) { _, image in
             Task {
                 if let data = try? await image?.loadTransferable(type: Data.self) {
